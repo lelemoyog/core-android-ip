@@ -59,8 +59,8 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="346dp"
-        android:layout_height="105dp"
+        android:layout_width="350dp"
+        android:layout_height="117dp"
         android:layout_marginBottom="460dp"
         android:fontFamily="monospace"
         android:text="Get Recipes for your needs and lifestyle."
