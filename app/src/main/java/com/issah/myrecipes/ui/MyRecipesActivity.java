@@ -1,8 +1,7 @@
-package com.issah.myrecipes;
+package com.issah.myrecipes.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -11,6 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.issah.myrecipes.R;
+import com.issah.myrecipes.RecipesArrayAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
