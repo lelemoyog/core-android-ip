@@ -4,20 +4,22 @@ package com.issah.myrecipes.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
-
+@Parcel
 public class MyrecipesSearchResponse {
 
     @SerializedName("from")
     @Expose
-    private Integer from;
+    private Double from;
     @SerializedName("to")
     @Expose
-    private Integer to;
+    private Double to;
     @SerializedName("count")
     @Expose
-    private Integer count;
+    private Double count;
     @SerializedName("_links")
     @Expose
     private Links links;
@@ -40,7 +42,7 @@ public class MyrecipesSearchResponse {
      * @param links
      * @param to
      */
-    public MyrecipesSearchResponse(Integer from, Integer to, Integer count, Links links, List<Hit> hits) {
+    public MyrecipesSearchResponse(Double from, Double to, Double count, Links links, List<Hit> hits) {
         super();
         this.from = from;
         this.to = to;
@@ -49,27 +51,27 @@ public class MyrecipesSearchResponse {
         this.hits = hits;
     }
 
-    public Integer getFrom() {
+    public Double getFrom() {
         return from;
     }
 
-    public void setFrom(Integer from) {
+    public void setFrom(Double from) {
         this.from = from;
     }
 
-    public Integer getTo() {
+    public Double getTo() {
         return to;
     }
 
-    public void setTo(Integer to) {
+    public void setTo(Double to) {
         this.to = to;
     }
 
-    public Integer getCount() {
+    public Double getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(Double count) {
         this.count = count;
     }
 

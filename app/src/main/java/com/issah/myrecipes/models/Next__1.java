@@ -4,7 +4,9 @@ package com.issah.myrecipes.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
 
+@Parcel
 public class Next__1 {
 
     @SerializedName("href")

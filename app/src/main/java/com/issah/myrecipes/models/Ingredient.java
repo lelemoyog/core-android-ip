@@ -1,10 +1,14 @@
 
 package com.issah.myrecipes.models;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
 
+@Parcel
 public class Ingredient {
 
     @SerializedName("text")
@@ -12,7 +16,7 @@ public class Ingredient {
     private String text;
     @SerializedName("quantity")
     @Expose
-    private Integer quantity;
+    private Double quantity;
     @SerializedName("measure")
     @Expose
     private String measure;
@@ -21,7 +25,7 @@ public class Ingredient {
     private String food;
     @SerializedName("weight")
     @Expose
-    private Integer weight;
+    private Double weight;
     @SerializedName("foodId")
     @Expose
     private String foodId;
@@ -42,7 +46,7 @@ public class Ingredient {
      * @param text
      * @param food
      */
-    public Ingredient(String text, Integer quantity, String measure, String food, Integer weight, String foodId) {
+    public Ingredient(String text, Double quantity, String measure, String food,Double weight, String foodId) {
         super();
         this.text = text;
         this.quantity = quantity;
@@ -60,11 +64,11 @@ public class Ingredient {
         this.text = text;
     }
 
-    public Integer getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 
@@ -84,11 +88,11 @@ public class Ingredient {
         this.food = food;
     }
 
-    public Integer getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
@@ -98,6 +102,12 @@ public class Ingredient {
 
     public void setFoodId(String foodId) {
         this.foodId = foodId;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s %s",  this.text , this.quantity ,  this.measure, this.food);
     }
 
 }

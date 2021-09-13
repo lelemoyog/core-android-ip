@@ -4,7 +4,9 @@ package com.issah.myrecipes.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
 
+@Parcel
 public class Digest {
 
     @SerializedName("label")
@@ -18,19 +20,17 @@ public class Digest {
     private String schemaOrgTag;
     @SerializedName("total")
     @Expose
-    private Integer total;
+    private Double total;
     @SerializedName("hasRDI")
     @Expose
     private Boolean hasRDI;
     @SerializedName("daily")
     @Expose
-    private Integer daily;
+    private Double daily;
     @SerializedName("unit")
     @Expose
     private String unit;
-    @SerializedName("sub")
-    @Expose
-    private Sub sub;
+
 
     /**
      * No args constructor for use in serialization
@@ -42,7 +42,7 @@ public class Digest {
     /**
      * 
      * @param schemaOrgTag
-     * @param sub
+
      * @param total
      * @param unit
      * @param daily
@@ -50,7 +50,7 @@ public class Digest {
      * @param label
      * @param tag
      */
-    public Digest(String label, String tag, String schemaOrgTag, Integer total, Boolean hasRDI, Integer daily, String unit, Sub sub) {
+    public Digest(String label, String tag, String schemaOrgTag, Double total, Boolean hasRDI, Double daily, String unit) {
         super();
         this.label = label;
         this.tag = tag;
@@ -59,7 +59,7 @@ public class Digest {
         this.hasRDI = hasRDI;
         this.daily = daily;
         this.unit = unit;
-        this.sub = sub;
+
     }
 
     public String getLabel() {
@@ -86,11 +86,11 @@ public class Digest {
         this.schemaOrgTag = schemaOrgTag;
     }
 
-    public Integer getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
@@ -102,11 +102,11 @@ public class Digest {
         this.hasRDI = hasRDI;
     }
 
-    public Integer getDaily() {
+    public Double getDaily() {
         return daily;
     }
 
-    public void setDaily(Integer daily) {
+    public void setDaily(Double daily) {
         this.daily = daily;
     }
 
@@ -118,12 +118,6 @@ public class Digest {
         this.unit = unit;
     }
 
-    public Sub getSub() {
-        return sub;
-    }
 
-    public void setSub(Sub sub) {
-        this.sub = sub;
-    }
 
 }
