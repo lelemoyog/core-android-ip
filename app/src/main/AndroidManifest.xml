@@ -2,26 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.issah.myrecipes">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyRecipes">
+        android:theme="@style/Theme.MyRecipes"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.MyRecipesActivity">
+            android:name=".ui.IngredientsDetailActivity"
+            android:exported="true" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.issah.myrecipes.ui.MainActivity">
+                android:value="com.issah.myrecipes.ui.MainActivity" >
             </meta-data>
         </activity>
-        <activity
-            android:name=".ui.FindRecipesActivity">
+        <activity android:name=".ui.MyRecipesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.issah.myrecipes.ui.MainActivity">
-            </meta-data>
+                android:value="com.issah.myrecipes.ui.MainActivity"></meta-data>
+        </activity>
+        <activity android:name=".ui.FindRecipesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.issah.myrecipes.ui.MainActivity"></meta-data>
         </activity>
         <activity
             android:name=".ui.MainActivity"
