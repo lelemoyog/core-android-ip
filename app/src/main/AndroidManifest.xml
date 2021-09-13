@@ -10,8 +10,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyRecipes">
         <activity
+            android:name=".MyRecipesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.issah.myrecipes.MainActivity">
+            </meta-data>
+        </activity>
+        <activity
+            android:name=".FindRecipesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.issah.myrecipes.MainActivity">
+            </meta-data>
+        </activity>
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
