@@ -1,4 +1,4 @@
-package com.issah.myrecipes;
+package com.issah.myrecipes.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.issah.myrecipes.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

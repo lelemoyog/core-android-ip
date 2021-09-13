@@ -4,6 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import android.widget.TextView;
 
+import com.issah.myrecipes.ui.MainActivity;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
