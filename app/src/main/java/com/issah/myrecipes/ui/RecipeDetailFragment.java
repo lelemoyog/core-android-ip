@@ -1,5 +1,7 @@
 package com.issah.myrecipes.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +26,14 @@ import butterknife.ButterKnife;
  * Use the {@link RecipeDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecipeDetailFragment extends Fragment {
+public class RecipeDetailFragment extends Fragment  implements View.OnClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     @BindView(R.id.recipeimage) ImageView mRecipeImageView;
     @BindView(R.id.recipeLabel) TextView mLabelTextView;
     @BindView(R.id.ingredientTextView2) TextView mIngredientLinesTextView;
+    @BindView(R.id.websiteTextView) TextView mRecipeUrl;
 
 
     // TODO: Rename and change types of parameters
@@ -71,8 +74,19 @@ public class RecipeDetailFragment extends Fragment {
         ButterKnife.bind(this, view);
         mIngredientLinesTextView.setText(mRecipe.getRecipe().getIngredientLines().toString());
         mLabelTextView.setText(mRecipe.getRecipe().getLabel());
+        mRecipeUrl.setOnClickListener(this);
         Picasso.get().load(mRecipe.getRecipe().getImage()).into(mRecipeImageView);
 
         return  view;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if(v == mRecipeUrl){
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mRecipe.getRecipe().getUrl()));
+            startActivity(webIntent);
+        }
     }
 }

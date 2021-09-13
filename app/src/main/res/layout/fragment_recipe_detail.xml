@@ -37,9 +37,40 @@
             android:text="TextView"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold|italic"/>
+            android:textStyle="bold|italic" />
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="30dp"
+        android:paddingTop="20dp"
+        android:paddingRight="30dp">
+
+    <TextView
+            android:id="@+id/websiteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:baselineAligned="false"
+            android:drawableLeft="@drawable/ic_baseline_exit_to_app_white_24dp"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            android:text="View online"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    </RelativeLayout>
     </LinearLayout>
 
 
