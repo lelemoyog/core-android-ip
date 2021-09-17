@@ -7,17 +7,24 @@ import static com.issah.myrecipes.Constants.SEARCH_TYPE;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.issah.myrecipes.Constants;
 import com.issah.myrecipes.R;
 import com.issah.myrecipes.RecipesArrayAdapter;
@@ -51,6 +58,7 @@ public class MyRecipesActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
     private String mRecentRecipe;
+    private DatabaseReference mSearchedRecipeReference;
 
 
     @Override
@@ -60,13 +68,62 @@ public class MyRecipesActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        String ingredient= intent.getStringExtra("ingredient");
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mRecentRecipe = mSharedPreferences.getString(Constants.PREFERENCES_RECIPE_KEY,null);
+        if(mRecentRecipe != null){
+            fetchRecipes(mRecentRecipe);
+        }
+
+        mSearchedRecipeReference = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.FIREBASE_CHILD_SEARCHED_INGREDIENTS);
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        ButterKnife.bind(this);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
+
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String ingredient) {
+                saveIngredientToFirebase(ingredient);
+                addToSharedPreferences(ingredient);
+                fetchRecipes(ingredient);
+                return false;
+            }
+
+
+            @Override
+            public boolean onQueryTextChange(String ingredient) {
+                return false;
+            }
+        });
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void saveIngredientToFirebase(String ingredient){
+      mSearchedRecipeReference.setValue(ingredient);
+    };
+
+    private void fetchRecipes(String ingredient){
         String app_id = APP_ID;
         String app_key = APP_KEY;
         String type = SEARCH_TYPE;
-
-
         EdamamApi client = EdamamClient.getClient();
         Call<MyrecipesSearchResponse> call = client.getRecipes(app_id,app_key,type,ingredient);
 
@@ -77,16 +134,16 @@ public class MyRecipesActivity extends AppCompatActivity {
                 hideProgressBar();
 
                 if (response.isSuccessful()) {
-                   recipes =  response.body().getHits();
-                   mAdapter = new RecipeListAdapter(MyRecipesActivity.this,recipes);
-                   mRecyclerView.setAdapter(mAdapter);
-                   RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MyRecipesActivity.this);
-                   mRecyclerView.setLayoutManager(layoutManager);
-                   mRecyclerView.setHasFixedSize(true);
+                    recipes =  response.body().getHits();
+                    mAdapter = new RecipeListAdapter(MyRecipesActivity.this,recipes);
+                    mRecyclerView.setAdapter(mAdapter);
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MyRecipesActivity.this);
+                    mRecyclerView.setLayoutManager(layoutManager);
+                    mRecyclerView.setHasFixedSize(true);
 
                     Log.e(TAG,String.valueOf(recipes));
 
-                   showRecipes();
+                    showRecipes();
                 }else {
                     showUnsuccessfulMessage();
                 }
@@ -99,8 +156,8 @@ public class MyRecipesActivity extends AppCompatActivity {
                 showFailureMessage();
             }
         });
+    };
 
-    }
     private void addToSharedPreferences(String ingredient) {
         mEditor.putString(Constants.PREFERENCES_RECIPE_KEY, ingredient).apply();
     }
