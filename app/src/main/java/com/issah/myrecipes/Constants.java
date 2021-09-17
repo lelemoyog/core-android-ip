@@ -5,6 +5,6 @@ public class Constants {
     public  static  final  String SEARCH_TYPE ="public";
     public static final   String APP_ID ="0d0a2dab";
     public static final   String APP_KEY ="8eaf37e3eface58725c008097aa64197";
-    public static final String PREFERENCES_RECIPE_KEY = "recipe";
-
+    public static final String PREFERENCES_RECIPE_KEY = "ingredient";
+    public static final String FIREBASE_CHILD_SEARCHED_INGREDIENTS = "searchedIngredients";
 }
