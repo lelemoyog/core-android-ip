@@ -5,6 +5,7 @@ import static com.issah.myrecipes.Constants.APP_KEY;
 import static com.issah.myrecipes.Constants.SEARCH_TYPE;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.issah.myrecipes.Constants;
 import com.issah.myrecipes.R;
 import com.issah.myrecipes.RecipesArrayAdapter;
 import com.issah.myrecipes.adapters.RecipeListAdapter;
@@ -46,6 +48,9 @@ public class MyRecipesActivity extends AppCompatActivity {
 
     public  List<Hit> recipes;
 
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+    private String mRecentRecipe;
 
 
     @Override
@@ -95,6 +100,9 @@ public class MyRecipesActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void addToSharedPreferences(String ingredient) {
+        mEditor.putString(Constants.PREFERENCES_RECIPE_KEY, ingredient).apply();
     }
     private void showFailureMessage() {
         mErrorTextView.setText("Something went wrong. Please check your Internet connection and try again later");
