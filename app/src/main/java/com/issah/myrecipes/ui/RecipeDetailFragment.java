@@ -6,12 +6,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.issah.myrecipes.Constants;
 import com.issah.myrecipes.R;
 import com.issah.myrecipes.models.Hit;
 import com.squareup.picasso.Picasso;
@@ -34,6 +39,7 @@ public class RecipeDetailFragment extends Fragment  implements View.OnClickListe
     @BindView(R.id.recipeLabel) TextView mLabelTextView;
     @BindView(R.id.ingredientTextView2) TextView mIngredientLinesTextView;
     @BindView(R.id.websiteTextView) TextView mRecipeUrl;
+    @BindView(R.id.saveRecipeButton) Button mSaveRecipeButton;
 
 
     // TODO: Rename and change types of parameters
@@ -75,6 +81,7 @@ public class RecipeDetailFragment extends Fragment  implements View.OnClickListe
         mIngredientLinesTextView.setText(mRecipe.getRecipe().getIngredientLines().toString());
         mLabelTextView.setText(mRecipe.getRecipe().getLabel());
         mRecipeUrl.setOnClickListener(this);
+        mSaveRecipeButton.setOnClickListener(this);
         Picasso.get().load(mRecipe.getRecipe().getImage()).into(mRecipeImageView);
 
         return  view;
@@ -88,5 +95,14 @@ public class RecipeDetailFragment extends Fragment  implements View.OnClickListe
                     Uri.parse(mRecipe.getRecipe().getUrl()));
             startActivity(webIntent);
         }
+        if(v == mSaveRecipeButton){
+
+            DatabaseReference recipeRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference(Constants.FIREBASE_CHILD_RECIPES);
+            recipeRef.push().setValue(mRecipe);
+            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

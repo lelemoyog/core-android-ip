@@ -62,12 +62,6 @@ public class Recipe {
     @SerializedName("dishType")
     @Expose
     private List<String> dishType = null;
-    @SerializedName("totalNutrients")
-    @Expose
-    private TotalNutrients totalNutrients;
-    @SerializedName("totalDaily")
-    @Expose
-    private TotalDaily totalDaily;
     @SerializedName("digest")
     @Expose
     private List<Digest> digest = null;
@@ -92,17 +86,15 @@ public class Recipe {
      * @param cuisineType
      * @param uri
      * @param url
-     * @param totalNutrients
      * @param dietLabels
      * @param dishType
      * @param yield
      * @param totalWeight
      * @param digest
      * @param ingredients
-     * @param totalDaily
      * @param ingredientLines
      */
-    public Recipe(String uri, String label, String image, String source, String url, String shareAs, Double yield, List<String> dietLabels, List<String> healthLabels, List<String> cautions, List<String> ingredientLines, List<Ingredient> ingredients, Double calories, Double totalWeight, List<String> cuisineType, List<String> mealType, List<String> dishType, TotalNutrients totalNutrients, TotalDaily totalDaily, List<Digest> digest) {
+    public Recipe(String uri, String label, String image, String source, String url, String shareAs, Double yield, List<String> dietLabels, List<String> healthLabels, List<String> cautions, List<String> ingredientLines, List<Ingredient> ingredients, Double calories, Double totalWeight, List<String> cuisineType, List<String> mealType, List<String> dishType, List<Digest> digest) {
         super();
         this.uri = uri;
         this.label = label;
@@ -121,8 +113,6 @@ public class Recipe {
         this.cuisineType = cuisineType;
         this.mealType = mealType;
         this.dishType = dishType;
-        this.totalNutrients = totalNutrients;
-        this.totalDaily = totalDaily;
         this.digest = digest;
     }
 
@@ -260,22 +250,6 @@ public class Recipe {
 
     public void setDishType(List<String> dishType) {
         this.dishType = dishType;
-    }
-
-    public TotalNutrients getTotalNutrients() {
-        return totalNutrients;
-    }
-
-    public void setTotalNutrients(TotalNutrients totalNutrients) {
-        this.totalNutrients = totalNutrients;
-    }
-
-    public TotalDaily getTotalDaily() {
-        return totalDaily;
-    }
-
-    public void setTotalDaily(TotalDaily totalDaily) {
-        this.totalDaily = totalDaily;
     }
 
     public List<Digest> getDigest() {
