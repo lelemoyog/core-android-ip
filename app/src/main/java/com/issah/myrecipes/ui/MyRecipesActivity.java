@@ -117,7 +117,7 @@ public class MyRecipesActivity extends AppCompatActivity {
     }
 
     public void saveIngredientToFirebase(String ingredient){
-      mSearchedRecipeReference.setValue(ingredient);
+      mSearchedRecipeReference.push().setValue(ingredient);
     };
 
     private void fetchRecipes(String ingredient){
