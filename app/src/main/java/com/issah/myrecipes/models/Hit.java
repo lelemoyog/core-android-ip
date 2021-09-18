@@ -20,6 +20,7 @@ public class Hit {
      * No args constructor for use in serialization
      * 
      */
+    private String pushId;
     public Hit() {
     }
 
@@ -48,6 +49,14 @@ public class Hit {
 
     public void setLinks(Links__1 links) {
         this.links = links;
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
     }
 
 }
