@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String TAG = MainActivity.class.getSimpleName();
     @BindView(R.id.findRecipes) Button mFindRecipesButton;
     @BindView(R.id.myRecipes) Button mMyRecipesButton;
-    @BindView(R.id.ingredientEditText) EditText mIngredientEditText;
     @BindView(R.id.appNameTextView) TextView mAppNameTextView;
 
     @Override
@@ -36,15 +35,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if(view == mMyRecipesButton){
-            String ingredient = mIngredientEditText.getText().toString();
             Intent intent = new Intent(MainActivity.this, MyRecipesActivity.class);
-            intent.putExtra("ingredient", ingredient);
             startActivity(intent);
         }
         if(view == mFindRecipesButton){
-            String ingredient = mIngredientEditText.getText().toString();
             Intent intent = new Intent(MainActivity.this, SavedRecipesActivity.class);
-            intent.putExtra("ingredient", ingredient);
             startActivity(intent);
         }
     }

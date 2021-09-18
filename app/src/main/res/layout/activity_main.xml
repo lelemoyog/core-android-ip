@@ -18,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/appNameTextView"
@@ -38,38 +38,36 @@
 
     <Button
         android:id="@+id/myRecipes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="125dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="60dp"
         android:text="find recipes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.445"
-        app:layout_constraintStart_toEndOf="@+id/ingredientEditText"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.881" />
+        app:layout_constraintVertical_bias="0.878" />
 
     <Button
         android:id="@+id/findRecipes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="189dp"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
         android:text="my Recipes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/myRecipes"
+        app:layout_constraintEnd_toStartOf="@+id/myRecipes"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="350dp"
-        android:layout_height="117dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:layout_marginBottom="460dp"
         android:fontFamily="monospace"
-        android:text="Get Recipes for your needs and lifestyle."
+        android:text="Get Recipes for your needs and lifestyle.Find new recipes base on the ingredients you have in your kitchen"
         android:textColor="@color/black"
         android:textSize="30sp"
-        android:textStyle="bold"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/myRecipes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -77,19 +75,5 @@
         app:layout_constraintTop_toBottomOf="@+id/appNameTextView"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/ingredientEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/findRecipes"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="44dp"
-        android:background="@color/white"
-        android:hint="enter ingredients"
-        android:inputType="textMultiLine"
-        android:minHeight="48dp"
-        android:padding="5dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/myRecipes"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
