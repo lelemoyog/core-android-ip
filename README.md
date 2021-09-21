@@ -2,9 +2,9 @@
 This project was generated with Android Studio
 #### By ISSA SAITEMU
 #### SCREEN SHORTS
-![](screenshots/img.png)
-![](screenshots/img_1.png)
-![](screenshots/img_2.png)
+![](screenshots/img_3.png)
+![](screenshots/img_4.png)
+![](screenshots/img_5.png)
 ## Description
 An Android application that allows users to find new recipes and save them.
 ## Setup/Installation Requirements
