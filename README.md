@@ -3,6 +3,7 @@ This project was generated with Android Studio
 #### By ISSA SAITEMU
 #### SCREEN SHORTS
 ![](screenshots/img_3.png)
+![](screenshots/img_1.png)
 ![](screenshots/img_4.png)
 ![](screenshots/img_5.png)
 ## Description
