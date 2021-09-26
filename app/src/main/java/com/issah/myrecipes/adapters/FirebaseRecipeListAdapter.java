@@ -20,6 +20,7 @@ import com.google.firebase.database.Query;
 
 import com.issah.myrecipes.R;
 import com.issah.myrecipes.models.Hit;
+import com.issah.myrecipes.models.Recipe;
 import com.issah.myrecipes.ui.IngredientsDetailActivity;
 import com.issah.myrecipes.util.ItemTouchHelperAdapter;
 import com.issah.myrecipes.util.OnStartDragListener;
@@ -30,13 +31,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class FirebaseRecipeListAdapter extends FirebaseRecyclerAdapter<Hit, FirebaseRecipeViewHolder>  implements ItemTouchHelperAdapter {
-    private DatabaseReference mRef;
+    private Query mRef;
     private OnStartDragListener mOnStartDragListener;
     private Context mContext;
+    private ChildEventListener mChildEventListener;
+    private ArrayList<Hit> mRecipe = new ArrayList<>();
 
 
     public  FirebaseRecipeListAdapter(FirebaseRecyclerOptions<Hit> options,
-                                      DatabaseReference ref,
+                                      Query ref,
                                       OnStartDragListener onStartDragListener,
                                       Context context){
         super(options);
@@ -44,6 +47,32 @@ public class FirebaseRecipeListAdapter extends FirebaseRecyclerAdapter<Hit, Fire
         mOnStartDragListener = onStartDragListener;
         mContext = context;
 
+        mChildEventListener = mRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                mRecipe.add(dataSnapshot.getValue(Hit.class));
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -56,7 +85,17 @@ public class FirebaseRecipeListAdapter extends FirebaseRecyclerAdapter<Hit, Fire
                if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
                    mOnStartDragListener.onStartDrag(holder);
                }
-               return true;
+               return false;
+           }
+       });
+
+       holder.itemView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(mContext,IngredientsDetailActivity.class);
+               intent.putExtra("position", holder.getAdapterPosition());
+               intent.putExtra("recipes", Parcels.wrap(mRecipe));
+               mContext.startActivity(intent);
            }
        });
 
@@ -72,14 +111,32 @@ public class FirebaseRecipeListAdapter extends FirebaseRecyclerAdapter<Hit, Fire
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
+        Collections.swap(mRecipe , fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
+        setIndexInFirebase();
         return false;
+    }
+
+    private void setIndexInFirebase(){
+        for(Hit recipe: mRecipe){
+            int index = mRecipe.indexOf(recipe);
+            DatabaseReference mReference = getRef(index);
+            recipe.setIndex(Integer.toString(index));
+            mReference.setValue(recipe);
+        }
     }
 
 
     @Override
     public void onItemDismiss(int position) {
-
+        mRecipe.remove(position);
+        getRef(position).removeValue();
     }
 
+    @Override
+    public void stopListening(){
+        super.stopListening();
+        mRef.removeEventListener(mChildEventListener);
+    }
 
 }

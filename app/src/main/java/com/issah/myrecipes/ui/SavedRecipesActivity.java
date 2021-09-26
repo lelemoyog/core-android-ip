@@ -62,11 +62,12 @@ public class SavedRecipesActivity extends AppCompatActivity implements  OnStartD
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
-        mRecipeReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_RECIPES).child(uid);
+        Query query = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_RECIPES).child(uid).orderByChild(Constants.FIREBASE_QUERY_INDEX);
         FirebaseRecyclerOptions<Hit>  options = new FirebaseRecyclerOptions.Builder<Hit>()
-                .setQuery(mRecipeReference,Hit.class)
+                .setQuery(query,Hit.class)
                 .build();
-        mFirebaseAdapter = new FirebaseRecipeListAdapter(options,mRecipeReference,(OnStartDragListener)this, this);
+        mFirebaseAdapter = new FirebaseRecipeListAdapter(options,query,this, this);
+
         mRecyclerView.setAdapter(mFirebaseAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
@@ -98,7 +99,11 @@ public class SavedRecipesActivity extends AppCompatActivity implements  OnStartD
         mProgressBar.setVisibility(View.GONE);
     }
 
-
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mFirebaseAdapter!= null) {
+            mFirebaseAdapter.stopListening();
+        }
+    }
 }

@@ -32,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder{
 
     View mView;
     Context mContext;
@@ -42,7 +42,6 @@ public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements
         super(itemView);
         mView = itemView;
         mContext = itemView.getContext();
-        itemView.setOnClickListener(this);
     }
 
     public void bindRecipe(Hit recipe) {
@@ -56,34 +55,5 @@ public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements
 
     }
 
-    @Override
-    public void onClick(View v) {
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-
-        final ArrayList<Hit> recipes = new ArrayList<>();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_RECIPES).child(uid);
-
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    recipes.add(snapshot.getValue(Hit.class));
-                }
-                int itemPosition = getLayoutPosition();
-
-                Intent intent = new Intent(mContext, IngredientsDetailActivity.class);
-                intent.putExtra("position",itemPosition + "");
-                intent.putExtra("recipes", Parcels.wrap(recipes));
-
-                mContext.startActivity(intent) ;
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 }
