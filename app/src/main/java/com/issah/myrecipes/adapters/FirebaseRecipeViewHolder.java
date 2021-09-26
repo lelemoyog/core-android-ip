@@ -2,8 +2,9 @@ package com.issah.myrecipes.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcel;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,13 +26,17 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     View mView;
     Context mContext;
+    public ImageView mRecipeImageView;
 
     public FirebaseRecipeViewHolder(View itemView) {
         super(itemView);
@@ -42,11 +47,11 @@ public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements
 
     public void bindRecipe(Hit recipe) {
 
-        ImageView recipeImageView = (ImageView) mView.findViewById(R.id.recipeimage);
+        mRecipeImageView = (ImageView) mView.findViewById(R.id.recipeimage);
         TextView labelTextView = (TextView) mView.findViewById(R.id.recipeLabel);
 
 
-        Picasso.get().load(recipe.getRecipe().getImage()).into(recipeImageView);
+        Picasso.get().load(recipe.getRecipe().getImage()).into(mRecipeImageView);
         labelTextView.setText(recipe.getRecipe().getLabel());
 
     }

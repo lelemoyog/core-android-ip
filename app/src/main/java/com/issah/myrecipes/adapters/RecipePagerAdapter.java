@@ -33,3 +33,4 @@ public class RecipePagerAdapter extends FragmentPagerAdapter {
         return mRecipes.get(position).getRecipe().getLabel();
     }
 }
+
