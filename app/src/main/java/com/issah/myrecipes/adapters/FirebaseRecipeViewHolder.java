@@ -22,6 +22,7 @@ import com.issah.myrecipes.Constants;
 import com.issah.myrecipes.R;
 import com.issah.myrecipes.models.Hit;
 import com.issah.myrecipes.ui.IngredientsDetailActivity;
+import com.issah.myrecipes.util.ItemTouchHelperViewHolder;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -32,7 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder{
+public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
 
     View mView;
     Context mContext;
@@ -55,5 +56,25 @@ public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder{
 
     }
 
+    @Override
+    public void onItemSelected(){
+        //Log.d("Animation", "onItemSelected");
+        // we will add animations here
+        itemView.animate()
+                .alpha(0.7f)
+                .scaleX(0.9f)
+                .scaleY(0.9f)
+                .setDuration(500);
+    }
+
+    @Override
+    public void onItemClear(){
+        //Log.d("Animation", "onItemClear");
+        // we will add animations here
+        itemView.animate()
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f);
+    }
 
 }
